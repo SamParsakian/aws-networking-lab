@@ -55,7 +55,7 @@ The end of the plan output shows the total of 20 resources to add. Nothing exist
 
 ## Deployment and verification
 
-The reviewed configuration was applied from a saved plan file, so exactly the plan that was reviewed is what got deployed. All 20 resources were created without errors. The NAT Gateway was the slowest part, taking a little under two minutes to become available.
+The plan was reviewed first. Right before the apply it was run again and saved to a file, and the saved plan still showed 20 to add, 0 to change and 0 to destroy. That saved plan file was then applied, so what was deployed is exactly what that final plan showed. All 20 resources were created without errors. The NAT Gateway was the slowest part, taking a little under two minutes to become available.
 
 Terraform reporting success is not enough, so the result was checked directly in AWS:
 
