@@ -2,7 +2,9 @@
 
 A small AWS network built entirely with Terraform: one VPC with a public and a private subnet, an Internet Gateway, a NAT Gateway, route tables, Security Groups and one EC2 instance in each subnet. The goal is to understand how public and private networking works in AWS and to prove it with real tests.
 
-![Architecture](project-record/architecture-diagram.svg)
+![Architecture of the lab](project-record/screenshots/architecture-diagram.png)
+
+*The whole lab in one picture: one VPC, a public and a private subnet, and the gateways and route tables that connect them.*
 
 ## What was built
 
@@ -20,6 +22,10 @@ In total the configuration creates 20 resources. The full story, with the reason
 AWS (VPC, EC2, NAT Gateway, Elastic IP, Security Groups), Terraform, AWS CLI, Amazon Linux 2023, SSH, Git.
 
 ## How the network behaves
+
+![Traffic flow](project-record/screenshots/traffic-flow-diagram.png)
+
+*The three traffic paths that were tested: (1) laptop to the public instance, (2) public instance to the private instance, (3) private instance to the internet through the NAT Gateway.*
 
 - A subnet is public only because its route table sends `0.0.0.0/0` to the Internet Gateway. The private subnet has no such route.
 - The private instance reaches the internet through the NAT Gateway, which sits in the public subnet. The internet cannot start a connection to the private instance.
@@ -71,8 +77,7 @@ Terraform reporting success was not treated as proof. The result was checked in 
 │   └── terraform.tfvars.example
 └── project-record/
     ├── PROJECT-RECORD.md      Detailed write-up of the project
-    ├── architecture-diagram.svg
-    └── screenshots/
+    └── screenshots/              Diagrams and evidence
 ```
 
 ## Cost

@@ -1,5 +1,13 @@
 # AWS Networking Lab - Project Record
 
+## Overview
+
+The lab is a small AWS network: one VPC with a public and a private subnet, an Internet Gateway, a NAT Gateway, two route tables, Security Groups, and one EC2 instance in each subnet. Everything is created with Terraform.
+
+![Architecture of the lab](screenshots/architecture-diagram.png)
+
+*The target design. Public traffic uses the Internet Gateway, and the private subnet reaches the internet only through the NAT Gateway.*
+
 ## Planning and environment
 
 Before any Terraform code is written, it is checked that Git, Terraform, the AWS CLI and SSH are installed.
@@ -71,6 +79,10 @@ The instance list shows both instances running, with a public IPv4 address only 
 ## Connectivity verification
 
 The idea of the test is simple: the public instance is the only way in, and the private instance can only reach the internet through the NAT Gateway.
+
+![Traffic flow](screenshots/traffic-flow-diagram.png)
+
+*The three paths that were tested. The screenshots below are the proof for each one.*
 
 - **Local machine to public instance.** SSH with the project key works.
 - **Public instance to private instance.** SSH to the private instance works by jumping through the public instance, with the private key staying on the local machine, and a ping from the public instance to `10.0.2.64` gets 3 replies out of 3. Both are allowed only because the private Security Group accepts traffic from the public Security Group.
