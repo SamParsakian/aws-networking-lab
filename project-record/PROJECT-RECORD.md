@@ -1,20 +1,27 @@
 # AWS Networking Lab - Project Record
 
-Detailed record of the lab, written step by step while the work is done.
+## 1. Local environment check
 
-## 1. Local environment preparation
+Before writing any Terraform code, I checked that Git, Terraform, the AWS CLI and SSH are installed.
 
-Date: 2026-10-07
+```
+git --version
+terraform version
+aws --version
+ssh -V
+```
 
-Before any Terraform code is written, the tools needed for the lab were checked. Nothing had to be installed. The AWS region used for the whole project is `eu-north-1` (Stockholm).
+![Local tool versions](screenshots/local-tool-versions.png)
 
-| Tool | Version found | Why it is needed |
-|------|---------------|------------------|
-| Git | 2.50.1 | Version control for the Terraform code and this record. |
-| Terraform | 1.16.4 | Describes and creates all AWS resources as code. |
-| AWS CLI | 2.37.10 | Authentication and read-only checks of what Terraform created. |
-| OpenSSH client | 10.3p1 | Needed later to reach the public EC2 instance and, through it, the private one. |
+All four tools are installed and working. Terraform reports a newer patch release (1.16.5), which does not matter for this lab.
 
-### AWS access check
+## 2. AWS readiness check
 
-The AWS CLI was already configured with a login session and `eu-north-1` as the default region. `aws sts get-caller-identity` returned an IAM user, so the session is valid and Terraform can reuse it through the AWS CLI configuration. No access keys are written into the project. Only read-only commands were run, and no AWS resources exist yet.
+Only read-only AWS CLI commands were used here. Nothing was created or changed.
+
+- The AWS CLI uses the `default` profile with a browser-based login session, signed in as an IAM user (not the root user). The default region in the CLI configuration is `eu-north-1`.
+- `eu-north-1` (Stockholm) was chosen for the lab. It has three Availability Zones (`a`, `b`, `c`), all available without opt-in, and the small instance types planned for the lab (`t3.nano`, `t3.micro`, `t3.small`) are offered in all three.
+- The account is empty in this region apart from the default VPC (`172.31.0.0/16`). There are no EC2 instances, NAT Gateways or Elastic IPs yet.
+- Service quotas are enough for this lab: 5 VPCs per region, 5 NAT Gateways per Availability Zone, 5 Elastic IPs and 16 running On-Demand standard instances.
+
+The default VPC is left untouched. The lab creates its own VPC, so the two do not interfere. A CIDR range that does not overlap with `172.31.0.0/16` will be chosen for it.
