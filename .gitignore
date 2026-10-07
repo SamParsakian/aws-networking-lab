@@ -1,0 +1,36 @@
+# Terraform state and plans
+*.tfstate
+*.tfstate.*
+*.tfplan
+tfplan
+.terraform/
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Terraform variable files with real values (the .example file is kept)
+*.tfvars
+*.tfvars.json
+!terraform.tfvars.example
+
+# Credentials and secrets
+.env
+.env.*
+*.pem
+*.key
+id_rsa*
+id_ed25519*
+*secret*
+*credentials*
+.aws/
+
+# Local working files
+_local/
+_screenshots/
+.DS_Store
+*.swp
+.idea/
+.vscode/
