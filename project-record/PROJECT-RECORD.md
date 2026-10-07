@@ -56,6 +56,14 @@ Terraform reporting success is not enough, so the result was checked directly in
 - The private instance has only a private IP (`10.0.2.x`), no public IP, and no route to the Internet Gateway.
 - Both instances use the same key pair, and the Security Group rules are exactly the ones planned: SSH to the public instance from one address only, and SSH and ping to the private instance from the public instance's Security Group only.
 
+![VPC resource map](screenshots/aws-vpc-resource-map.png)
+
+The resource map in the AWS Console shows the same design: both subnets, the two route tables created for the lab, and the Internet Gateway and NAT Gateway they connect to. The third route table is the main one that AWS adds to every VPC automatically. It has no subnets and is not used.
+
+![EC2 instances](screenshots/aws-ec2-instances.png)
+
+The instance list shows both instances running, with a public IPv4 address only on the public one.
+
 ## Connectivity verification
 
 The idea of the test is simple: the public instance is the only way in, and the private instance can only reach the internet through the NAT Gateway.
