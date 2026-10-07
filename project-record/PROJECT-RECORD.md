@@ -65,4 +65,12 @@ The idea of the test is simple: the public instance is the only way in, and the 
 - **Private instance to the internet.** A request to `checkip.amazonaws.com` from the private instance returns `51.21.18.255`, which is the Elastic IP of the NAT Gateway, not an address of the instance itself. The instance has no public IP, so this shows that the outbound traffic really leaves through the NAT Gateway. A request to `aws.amazon.com` returns HTTP 200.
 - **Internet to private instance.** Not possible by design. The instance has no public IP, its subnet has no route to the Internet Gateway, and its Security Group accepts nothing from the internet. From the local machine, SSH and ping to `10.0.2.64` just time out.
 
+![Public to private ping](screenshots/public-to-private-ping.png)
+
+Logged in to the public instance, the private instance answers all three pings.
+
+![Private outbound through NAT](screenshots/private-outbound-through-nat.png)
+
+After the SSH hop to the private instance, the address it reports to the internet is the Elastic IP of the NAT Gateway.
+
 For comparison, the same check on the public instance returns its own public IP, because its traffic goes out directly through the Internet Gateway.
