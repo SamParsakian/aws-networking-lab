@@ -2,6 +2,8 @@
 
 A small AWS network built entirely with Terraform: one VPC with a public and a private subnet, an Internet Gateway, a NAT Gateway, route tables, Security Groups and one EC2 instance in each subnet. The goal is to understand how public and private networking works in AWS and to prove it with real tests.
 
+The lab is also a small example of a temporary environment: a network that can be created on demand, used by a team while it is needed, and removed again when the work is done.
+
 ![Architecture of the lab](project-record/screenshots/architecture-diagram.png)
 
 *The whole lab in one picture: one VPC, a public and a private subnet, and the gateways and route tables that connect them.*
@@ -80,6 +82,10 @@ Terraform reporting success was not treated as proof. The result was checked in 
     └── screenshots/              Diagrams and evidence
 ```
 
-## Cost
+## Cost and temporary environments
 
-The NAT Gateway, the Elastic IP and the public IPv4 address are billed by the hour, so the lab is meant to run only while it is being tested and documented. It is removed with `terraform destroy` afterwards.
+Some of the resources in this lab are billed by the hour, mainly the NAT Gateway, the Elastic IP and the public IPv4 address. Leaving them running all the time would cost money for nothing when nobody is using the environment.
+
+Because the whole network is described in Terraform, this is not a problem. It can be created with one `terraform apply`, used for as long as a team or a developer needs it, and removed completely with one `terraform destroy`. The same code builds it again whenever it is needed, so nothing has to be remembered or clicked together by hand. This is a good fit for platforms that are only needed from time to time, such as test environments, demos or training labs, where paying only for the hours they are really used keeps the cost under control.
+
+For this project the lab was kept running only while it was being tested and documented, and then it was destroyed.
