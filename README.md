@@ -90,11 +90,6 @@ Because the whole network is described in Terraform, this is not a problem. It c
 
 For this project the lab was kept running only while it was tested and documented. It was then removed with `terraform destroy`, and a check afterwards confirmed that nothing from the lab was left in the account.
 
-## Learning reference
+---
 
-This project was built after studying Travis Media's AWS networking and Terraform tutorials:
-
-- [AWS networking tutorial](https://youtu.be/2doSoMN2xvI)
-- [Terraform tutorial](https://youtu.be/nvNqfgojocs)
-
-The infrastructure, Terraform implementation, testing, screenshots and documentation were created independently for this portfolio project.
+*Background reading for this lab: Travis Media's [AWS networking](https://youtu.be/2doSoMN2xvI) and [Terraform](https://youtu.be/nvNqfgojocs) tutorials.*
