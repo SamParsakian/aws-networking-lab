@@ -44,3 +44,14 @@ The `terraform.tfvars` file in the listing holds local values and is ignored by 
 ![Terraform plan summary](screenshots/terraform-plan-summary.png)
 
 The end of the plan output shows the total of 20 resources to add. Nothing exists in AWS yet, because the plan was not applied.
+
+## Deployment and verification
+
+The reviewed configuration was applied, and all 20 resources were created without errors. The NAT Gateway was the slowest part, taking a little under two minutes to become available.
+
+Terraform reporting success is not enough, so the result was checked directly in AWS:
+
+- The public subnet (`10.0.1.0/24`) routes `0.0.0.0/0` to the Internet Gateway, and the private subnet (`10.0.2.0/24`) routes `0.0.0.0/0` to the NAT Gateway. The NAT Gateway is in the public subnet and uses its own Elastic IP.
+- The public instance has a public IP, and SSH to it works with the project key. Its outgoing traffic leaves with its own public address.
+- The private instance has only a private IP (`10.0.2.x`), no public IP, and no route to the Internet Gateway.
+- Both instances use the same key pair, and the Security Group rules are exactly the ones planned: SSH to the public instance from one address only, and SSH and ping to the private instance from the public instance's Security Group only.
