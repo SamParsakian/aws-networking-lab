@@ -31,7 +31,7 @@ The `terraform.tfvars` file in the listing holds local values and is ignored by 
 
 **Instances.** Both instances are `t3.micro` with the latest Amazon Linux 2023 image. The image is looked up through the public AWS parameter for Amazon Linux instead of a hard-coded AMI ID, so the code does not go out of date. Only the public instance gets a public IP address.
 
-Both instances use the same SSH key pair. Terraform uploads only the public half of a dedicated local key, and the private key stays on the local machine, outside the repository.
+**SSH access.** The key pair is created by Terraform too, so access to the instances is part of the code and can be rebuilt with it. Only the public half of a dedicated local key is uploaded. The private key stays on the local machine, outside the repository, because a private key must never end up in code, Git or the Terraform state. Both instances use the same key pair, and the private one is reached by jumping through the public one.
 
 **Security Groups.** The public instance accepts SSH only from one address, the public IP of the machine running the lab, and never from `0.0.0.0/0`. The private instance accepts SSH and ping only from the public instance's Security Group, so the only way into it is through the public instance. Both allow all outbound traffic, which for the private instance leaves through the NAT Gateway.
 
