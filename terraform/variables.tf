@@ -45,8 +45,8 @@ variable "my_ip_cidr" {
   type        = string
 
   validation {
-    condition     = can(cidrnetmask(var.my_ip_cidr)) && var.my_ip_cidr != "0.0.0.0/0"
-    error_message = "my_ip_cidr must be a valid CIDR and must not be 0.0.0.0/0."
+    condition     = can(cidrnetmask(var.my_ip_cidr)) && endswith(var.my_ip_cidr, "/32")
+    error_message = "my_ip_cidr must be a single address in /32 form, for example 203.0.113.10/32."
   }
 }
 
