@@ -98,3 +98,13 @@ Logged in to the public instance, the private instance answers all three pings.
 After the SSH hop to the private instance, the address it reports to the internet is the Elastic IP of the NAT Gateway.
 
 For comparison, the same check on the public instance returns its own public IP, because its traffic goes out directly through the Internet Gateway.
+
+## Teardown
+
+Once the verification was finished, the whole lab was removed with `terraform destroy`. The destroy plan was reviewed first and listed exactly the 20 resources that Terraform had created, nothing else. The NAT Gateway was the slowest to disappear, taking about a minute. Since Terraform created everything, one command was enough to remove the instances, the NAT Gateway, the Elastic IP, the key pair and the whole network, and the Terraform state is empty afterwards.
+
+Afterwards the account was checked directly in `eu-north-1`. No instances, NAT Gateways, Elastic IPs, volumes or key pairs are left, and the only VPC in the region is the default one that was never touched.
+
+![VPC list after destroy](screenshots/aws-vpc-list-after-destroy.png)
+
+The VPC list in the AWS Console shows only the default VPC (`172.31.0.0/16`). The lab VPC is gone, and with it the hourly costs of the NAT Gateway and the public IP addresses.

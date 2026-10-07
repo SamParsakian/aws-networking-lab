@@ -88,4 +88,4 @@ Some of the resources in this lab are billed by the hour, mainly the NAT Gateway
 
 Because the whole network is described in Terraform, this is not a problem. It can be created with one `terraform apply`, used for as long as a team or a developer needs it, and removed completely with one `terraform destroy`. The same code builds it again whenever it is needed, so nothing has to be remembered or clicked together by hand. This is a good fit for platforms that are only needed from time to time, such as test environments, demos or training labs, where paying only for the hours they are really used keeps the cost under control.
 
-For this project the lab runs only while it is being tested and documented, and is removed with `terraform destroy` afterwards.
+For this project the lab was kept running only while it was tested and documented. It was then removed with `terraform destroy`, and a check afterwards confirmed that nothing from the lab was left in the account.
