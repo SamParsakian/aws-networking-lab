@@ -60,6 +60,10 @@ Terraform reporting success is not enough, so the result was checked directly in
 
 The resource map in the AWS Console shows the same design: both subnets, the two route tables created for the lab, and the Internet Gateway and NAT Gateway they connect to. The third route table is the main one that AWS adds to every VPC automatically. It has no subnets and is not used.
 
+![Private route table](screenshots/aws-private-route-table.png)
+
+The private route table sends `0.0.0.0/0` to the NAT Gateway, keeps `10.0.0.0/16` local, and is associated with the private subnet only.
+
 ![EC2 instances](screenshots/aws-ec2-instances.png)
 
 The instance list shows both instances running, with a public IPv4 address only on the public one.
