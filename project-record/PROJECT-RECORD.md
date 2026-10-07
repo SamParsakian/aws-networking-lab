@@ -47,7 +47,7 @@ The end of the plan output shows the total of 20 resources to add. Nothing exist
 
 ## Deployment and verification
 
-The reviewed configuration was applied, and all 20 resources were created without errors. The NAT Gateway was the slowest part, taking a little under two minutes to become available.
+The reviewed configuration was applied from a saved plan file, so exactly the plan that was reviewed is what got deployed. All 20 resources were created without errors. The NAT Gateway was the slowest part, taking a little under two minutes to become available.
 
 Terraform reporting success is not enough, so the result was checked directly in AWS:
 
@@ -73,7 +73,7 @@ The instance list shows both instances running, with a public IPv4 address only 
 The idea of the test is simple: the public instance is the only way in, and the private instance can only reach the internet through the NAT Gateway.
 
 - **Local machine to public instance.** SSH with the project key works.
-- **Public instance to private instance.** SSH works from the public instance (reached with the same key through the public instance), and a ping from the public instance to `10.0.2.64` gets 3 replies out of 3. Both are allowed only because the private Security Group accepts traffic from the public Security Group.
+- **Public instance to private instance.** SSH to the private instance works by jumping through the public instance, with the private key staying on the local machine, and a ping from the public instance to `10.0.2.64` gets 3 replies out of 3. Both are allowed only because the private Security Group accepts traffic from the public Security Group.
 - **Private instance to the internet.** A request to `checkip.amazonaws.com` from the private instance returns `51.21.18.255`, which is the Elastic IP of the NAT Gateway, not an address of the instance itself. The instance has no public IP, so this shows that the outbound traffic really leaves through the NAT Gateway. A request to `aws.amazon.com` returns HTTP 200.
 - **Internet to private instance.** Not possible by design. The instance has no public IP, its subnet has no route to the Internet Gateway, and its Security Group accepts nothing from the internet. From the local machine, SSH and ping to `10.0.2.64` just time out.
 
