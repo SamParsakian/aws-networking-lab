@@ -43,4 +43,4 @@ The `terraform.tfvars` file in the listing holds local values and is ignored by 
 
 ![Terraform plan summary](screenshots/terraform-plan-summary.png)
 
-The end of the plan output shows the total of 19 resources to add. Nothing exists in AWS yet, because the plan was not applied.
+The end of the plan output shows the total of 20 resources to add. Nothing exists in AWS yet, because the plan was not applied.
