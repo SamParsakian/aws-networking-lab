@@ -44,7 +44,7 @@ terraform apply
 terraform destroy
 ```
 
-The plan was reviewed before apply, and the apply used a saved plan file. A personal `terraform.tfvars` (not in the repository) holds the allowed SSH address. `terraform.tfvars.example` shows the format.
+The plan was reviewed first. It was then run again and saved right before the apply (still 20 to add, 0 to change, 0 to destroy), and that saved plan file was applied. A personal `terraform.tfvars` (not in the repository) holds the allowed SSH address. `terraform.tfvars.example` shows the format.
 
 ## Verification
 
