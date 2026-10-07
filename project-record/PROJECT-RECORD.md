@@ -31,13 +31,15 @@ The `terraform.tfvars` file in the listing holds local values and is ignored by 
 
 **Instances.** Both instances are `t3.micro` with the latest Amazon Linux 2023 image. The image is looked up through the public AWS parameter for Amazon Linux instead of a hard-coded AMI ID, so the code does not go out of date. Only the public instance gets a public IP address.
 
+Both instances use the same SSH key pair. Terraform uploads only the public half of a dedicated local key, and the private key stays on the local machine, outside the repository.
+
 **Security Groups.** The public instance accepts SSH only from one address, the public IP of the machine running the lab, and never from `0.0.0.0/0`. The private instance accepts SSH and ping only from the public instance's Security Group, so the only way into it is through the public instance. Both allow all outbound traffic, which for the private instance leaves through the NAT Gateway.
 
 **Sensitive values.** The real IP address is kept in a local `terraform.tfvars` that Git ignores. The repository only contains `terraform.tfvars.example` with a placeholder. No credentials are written anywhere, because Terraform uses the existing AWS CLI login.
 
 ### What the plan shows
 
-`terraform fmt`, `init`, `validate` and `plan` all ran cleanly. The plan creates 19 resources and changes or destroys nothing: the VPC, two subnets, the Internet Gateway, two route tables with their associations, the Elastic IP, the NAT Gateway, two Security Groups with five rules, and the two instances. In the plan the private instance has no public IP, and its only default route points to the NAT Gateway.
+`terraform fmt`, `init`, `validate` and `plan` all ran cleanly. The plan creates 20 resources and changes or destroys nothing: the VPC, two subnets, the Internet Gateway, two route tables with their associations, the Elastic IP, the NAT Gateway, two Security Groups with five rules, the SSH key pair, and the two instances. In the plan the private instance has no public IP, and its only default route points to the NAT Gateway.
 
 ![Terraform plan summary](screenshots/terraform-plan-summary.png)
 

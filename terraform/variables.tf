@@ -50,8 +50,8 @@ variable "my_ip_cidr" {
   }
 }
 
-variable "key_name" {
-  description = "Name of an existing EC2 key pair for SSH. Null means the instances are launched without a key pair."
+variable "ssh_public_key_path" {
+  description = "Path to the local public key that is uploaded to AWS as the EC2 key pair. The private key stays on the local machine."
   type        = string
-  default     = null
+  default     = "~/.ssh/sam-aws-networking-lab_ed25519.pub"
 }
